@@ -23,12 +23,14 @@ func main() {
 	//setup controller
 	bookController := controllers.NewBookHandler(bookService)
 
+	//routes
 	v1 := e.Group("/v1")
 	v1.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
 	v1.GET("/books", bookController.GetAllBooks)
+	v1.POST("/books", bookController.StoreBookHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 
