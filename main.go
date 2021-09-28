@@ -31,6 +31,9 @@ func main() {
 
 	v1.GET("/books", bookController.GetAllBooks)
 	v1.POST("/books", bookController.StoreBookHandler)
+	v1.GET("/books/:id", bookController.FindBook)
+	v1.PUT("/books/:id", bookController.UpdateHandler)
+	v1.DELETE("/books/:id", bookController.DeleteHandler)
 
 	e.Logger.Fatal(e.Start(":8080"))
 

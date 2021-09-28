@@ -8,10 +8,10 @@ import (
 
 type Repository interface {
 	FindAll() ([]models.Book, error)
-	// FindById(ID int) (models.Book, error)
+	FindById(ID int) (models.Book, error)
 	Create(book models.Book) (models.Book, error)
-	// Update(book models.Book) (models.Book, error)
-	// Delete(book models.Book) (models.Book, error)
+	Update(book models.Book) (models.Book, error)
+	Delete(book models.Book) (models.Book, error)
 }
 
 type repository struct {
@@ -40,6 +40,19 @@ func (r *repository) Create(book models.Book) (models.Book, error) {
 
 func (r *repository) Delete(book models.Book) (models.Book, error) {
 	err := r.db.Delete(&book).Error
+
+	return book, err
+}
+
+func (r *repository) FindById(ID int) (models.Book, error) {
+	var book models.Book
+	err := r.db.Find(&book, ID).Error
+
+	return book, err
+}
+
+func (r *repository) Update(book models.Book) (models.Book, error) {
+	err := r.db.Save(&book).Error
 
 	return book, err
 }
